@@ -14,12 +14,16 @@ SECRET_KEY = 'django-insecure-y128xq-&twu2=7p&k!mx%0+&xkuz4ryjs4i0&*k_enu_dw8)m$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*","172.16.0.49"]
 
-
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:4200', # my angular app
+    'http://localhost:8080',
+)
 # Application definition
 
 INSTALLED_APPS = [
+    'cab_g',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -28,8 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    "corsheaders",
     
-    'cab_g',
 
 ]
 
@@ -41,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'suivi_back.urls'
@@ -130,3 +135,12 @@ MEDIA_ROOT = '/media/'
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+
+    "http://localhost:8080",
+    "http://localhost:4200",
+    "http://127.0.0.1:9000",
+]

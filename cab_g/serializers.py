@@ -1,8 +1,10 @@
+from dataclasses import field
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-from .models import  Doctor
+from .models import  ActeDemander, ActeFait, Appointment, Assistant, Cabinet, Doctor, Invoice, Medicament, Ordonnance, Patient, Specialite
+from cab_g import models
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -54,3 +56,57 @@ class DoctorSerializer(serializers.ModelSerializer):
         """Include default for read_only `user` field"""
         kwargs["user"] = self.fields["user"].get_default()
         return super().save(**kwargs)
+
+
+
+class CabinetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cabinet
+        fields = '__all__'
+
+
+class SpecialiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = Specialite
+        fields = '__all__'
+
+
+class PatientSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Patient
+        fields = '__all__'
+
+class ActeDemanderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ActeDemander
+        fields = '__all__'  
+
+class ActeFaitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ActeFait
+        fields = '__all__'
+
+class MedicamentSerializer(serializers.ModelSerializer):
+    class Meta : 
+        model = Medicament
+        fields = '__all__'
+
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = Appointment
+        fields = '__all__'
+
+class OrdonnanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ordonnance
+        fields = '__all__'
+
+class InvoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invoice
+        fields = '__all__'
+class AssistantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Assistant
+        fields = '__all__'
