@@ -1,3 +1,4 @@
-from django.test import TestCase
-
-# Create your tests here.
+dict = {'an':30, 'example':18}
+print(dict)
+dict.pop("an")
+print(dict)

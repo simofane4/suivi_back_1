@@ -1,0 +1,30 @@
+{
+    "username": "hamidami",
+    "email": "ahmed@amire.com",
+    "first_name": "hamid",
+    "last_name": "amire",
+    "password": 1,
+    "cabinet": 1,
+    "img": "/media/media/doctor/default.png",
+    "inp": "21108553",
+    "gender": "Female",
+    "phone": "+1-016-173-7010x49911",
+    "address": "641 Shaw Shoal\nPort Stephanie, OK 41603",
+    "specialiste": 13
+
+}
+{
+    "username": "hamidami",
+    "email": "ahmed@amire.com",
+    "first_name": "hamid",
+    "last_name": "amire",
+    "password": 1,
+    "cabinet": 1,
+    "img": "/media/media/doctor/default.png",
+    "cin": "21108553",
+    "gender": "Female",
+    "phone": "+1-016-173-7010x49911",
+    "address": "641 Shaw Shoal\nPort Stephanie, OK 41603",
+    
+ 
+}

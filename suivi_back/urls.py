@@ -8,7 +8,7 @@ from cab_g import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('hello/', views.HelloView.as_view(), name='hello'),
     path('api/register/', views.RegisterView.as_view(), name='auth_register'),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/create-ordonnance/',views.CreateOrdonnanceView.as_view(),name='create-ordonnance'),
     path('api/create-invoice/',views.CreateInvoiceView.as_view(),name='create-invoice'),
 
+    
     path('api/get-patient/',views.GetPatientView.as_view(),name='get-patient'),
     path('api/get-cabinet/',views.GetCabinetView.as_view(),name='get-cabinet'),
     path('api/get-specialite/',views.GetSpecialitetView.as_view(),name='get-specialite'),
@@ -56,8 +57,18 @@ urlpatterns = [
     path('api/delete-appointment/<int:id>/',views.AppointmentDeleteView.as_view(),name='delete-appointment'),
     path('api/delete-ordonnance/<int:id>/',views.OrdonnanceDeleteView.as_view(),name='delete-ordonnance'),
     path('api/delete-invoice/<int:id>/',views.InvoiceDeleteView.as_view(),name='delete-invoice'),
+
+    path('api/get-assistant/',views.AssistantGetView.as_view(),name='get-assistant'),
+    path('api/create-assistant/',views.CreateAssistantView.as_view(),name='create-assistant'),
+    path('api/update-assistant/<int:id>/',views.AssistantUpdateView.as_view(),name='update-assistant'),
+    path('api/delete-assistant/<int:id>/',views.AssistantDeleteView.as_view(),name='delete-assistant'),
     
-    
+    path('api/get-doctor/',views.AllDoctorsView.as_view(),name='get-doctor'),
+
+    path('api/get-user/',views.AllUsersView.as_view(),name='get-user'),
+    path('api/get-connected-user/',views.GetUserView.as_view(),name='get-connected-user'),
+    path('do',views.DoTest.as_view(),name='r'),# just i wel  check if its works
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

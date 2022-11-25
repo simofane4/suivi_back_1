@@ -1,0 +1,52 @@
+curl --location --request POST 'https://server.suivi.ma:3232/api/create-acte-demander/' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNDAwMTk0LCJpYXQiOjE2NTMzOTk4OTQsImp0aSI6IjZiNGE5NGE5NWU4MTQwOTJhMWVkMmMzZDg4OGJjYjQ2IiwidXNlcl9pZCI6NzQsIm5hbWUiOiJuYnV0bGVyIiwiZmlyc3RfbmFtZSI6Ik5pbmEiLCJsYXN0X25hbWUiOiJCdXRsZXIiLCJlbWFpbCI6Im5idXRsZXJAYnV0bGVyLmNvbSIsImFjdGl2ZSI6dHJ1ZSwiZ3JvdXBzIjpudWxsfQ.7dsKAn-FpzQCPkzG2ozSgboar9kOhlyL-v-aCO5XPZg' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    
+    "title": "acte ",
+    "description": "test tsst"
+}'
+
+curl --location --request GET 'https://server.suivi.ma:3232/api/get-acte-demander/' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNDAwNDk2LCJpYXQiOjE2NTM0MDAxOTYsImp0aSI6IjcxNGE4NTE3MTNhYzQ3OGE5YmRjNWNhMDlhMTVhOGRjIiwidXNlcl9pZCI6NzQsIm5hbWUiOiJuYnV0bGVyIiwiZmlyc3RfbmFtZSI6Ik5pbmEiLCJsYXN0X25hbWUiOiJCdXRsZXIiLCJlbWFpbCI6Im5idXRsZXJAYnV0bGVyLmNvbSIsImFjdGl2ZSI6dHJ1ZSwiZ3JvdXBzIjpudWxsfQ.QzJjTgrdkjAJ1YRrPHAMxPnVOTHsoGit327Uunjtnoc'
+
+
+curl --location --request PUT 'https://server.suivi.ma:3232/api/update-acte-demander/1/' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNDAwNjQwLCJpYXQiOjE2NTM0MDAzNDAsImp0aSI6ImVjMjQwOWM4YmJkMTQxMGE5OWJjNWUwZjlkZWYyNmIzIiwidXNlcl9pZCI6NzQsIm5hbWUiOiJuYnV0bGVyIiwiZmlyc3RfbmFtZSI6Ik5pbmEiLCJsYXN0X25hbWUiOiJCdXRsZXIiLCJlbWFpbCI6Im5idXRsZXJAYnV0bGVyLmNvbSIsImFjdGl2ZSI6dHJ1ZSwiZ3JvdXBzIjpudWxsfQ.LEs7AmUaZLp-Gv8f7b_zsuedjoaEyXy5fETayUo6X8A' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+        "id": 1,
+        "title": "ac",
+        "description": "test update",
+        "cabinet": 37
+    }'
+
+curl --location --request DELETE 'https://server.suivi.ma:3232/api/delete-acte-demander/2/' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNDAwNzc1LCJpYXQiOjE2NTM0MDA0NzUsImp0aSI6IjE1M2UzZGE5NTAyYjQzMjA5MTFiMGI4ODZkODI1MmU4IiwidXNlcl9pZCI6NzQsIm5hbWUiOiJuYnV0bGVyIiwiZmlyc3RfbmFtZSI6Ik5pbmEiLCJsYXN0X25hbWUiOiJCdXRsZXIiLCJlbWFpbCI6Im5idXRsZXJAYnV0bGVyLmNvbSIsImFjdGl2ZSI6dHJ1ZSwiZ3JvdXBzIjpudWxsfQ.FdbaWGz-WHP5LyxMN4UBKamsG2iiSJsslLwvbznUJ6o' \
+--data-raw ''
+
+curl --location --request POST 'https://server.suivi.ma:3232/api/create-acte-fait/' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNDAxMDIzLCJpYXQiOjE2NTM0MDA3MjMsImp0aSI6IjYwYTIwZmQ4MzZhOTQwMzU5N2QzNWFiYzI3ZWUzZjhiIiwidXNlcl9pZCI6NzQsIm5hbWUiOiJuYnV0bGVyIiwiZmlyc3RfbmFtZSI6Ik5pbmEiLCJsYXN0X25hbWUiOiJCdXRsZXIiLCJlbWFpbCI6Im5idXRsZXJAYnV0bGVyLmNvbSIsImFjdGl2ZSI6dHJ1ZSwiZ3JvdXBzIjpudWxsfQ.F57SzSztlcwe9A_-OlUYaMLsfRlMOVnkQTyU1ZkbrM0' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "acte fait",
+    "description":"test test"
+}'
+
+curl --location --request GET 'https://server.suivi.ma:3232/api/get-acte-fait/' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNDAxMjM2LCJpYXQiOjE2NTM0MDA5MzYsImp0aSI6Ijc3ZDMyOTVlNmJlZDQyN2I4OTVhMGZjZjkyYjM3ZTc5IiwidXNlcl9pZCI6NzQsIm5hbWUiOiJuYnV0bGVyIiwiZmlyc3RfbmFtZSI6Ik5pbmEiLCJsYXN0X25hbWUiOiJCdXRsZXIiLCJlbWFpbCI6Im5idXRsZXJAYnV0bGVyLmNvbSIsImFjdGl2ZSI6dHJ1ZSwiZ3JvdXBzIjpudWxsfQ.F8bDJbee2jkuRDQhw7aFLg2u3ilurcUxMqYDme-CpTU' \
+--data-raw ''
+
+curl --location --request PUT 'https://server.suivi.ma:3232/api/update-acte-fait/1/' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNDAxMTM5LCJpYXQiOjE2NTM0MDA4MzksImp0aSI6ImI4NjE0NDQ1M2VlMjQ4ZmI4NzFjYWRkZTA2ZmVlNzk4IiwidXNlcl9pZCI6NzQsIm5hbWUiOiJuYnV0bGVyIiwiZmlyc3RfbmFtZSI6Ik5pbmEiLCJsYXN0X25hbWUiOiJCdXRsZXIiLCJlbWFpbCI6Im5idXRsZXJAYnV0bGVyLmNvbSIsImFjdGl2ZSI6dHJ1ZSwiZ3JvdXBzIjpudWxsfQ.S_Rw4kvmE5ki166HC2gHpNRVZyOT9OlFmiRMbXaY9Zk' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "acte fait",
+    "description":"test tt"
+}'
+
+curl --location --request DELETE 'https://server.suivi.ma:3232/api/delete-acte-fait/1/' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNDAxNjI5LCJpYXQiOjE2NTM0MDEzMjksImp0aSI6ImUwMGNiYjFiZWMzODRlOGJhMTc5ZTk4OWRjNmM3ODk0IiwidXNlcl9pZCI6NzQsIm5hbWUiOiJuYnV0bGVyIiwiZmlyc3RfbmFtZSI6Ik5pbmEiLCJsYXN0X25hbWUiOiJCdXRsZXIiLCJlbWFpbCI6Im5idXRsZXJAYnV0bGVyLmNvbSIsImFjdGl2ZSI6dHJ1ZSwiZ3JvdXBzIjpudWxsfQ.SLhE-L2rfyImkoCY_IxXtwtuUneH9M01A_GARTNlgJQ' \
+--data-raw ''
+
+

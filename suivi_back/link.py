@@ -16,7 +16,7 @@
 
 #'http://89.40.6.22:1234/api/get-patient/'
 #'http://89.40.6.22:1234/api/get-specialite/'
-#'http://89.40.6.22:1234/api/get-acte-demander/'
+#'http://89.40.6.22:1234/api/get-acte-demander/'21020584278
 #'http://89.40.6.22:1234/api/get-acte-fait/'
 #'http://89.40.6.22:1234/api/get-medicament/'
 #'http://89.40.6.22:1234/api/get-appointment/'
@@ -35,7 +35,7 @@
 #'http://89.40.6.22:1234/api/update-invoice/<int:id>/'
 
 #'http://89.40.6.22:1234/api/delete-specialite/<int:id>/'
-#'http://89.40.6.22:1234/api/delete-doctor/<int:id>/'
+
 #'http://89.40.6.22:1234/api/delete-cabinet/<int:id>/'
 #'http://89.40.6.22:1234/api/delete-patient/<int:id>/'
 #'http://89.40.6.22:1234/api/delete-acte-demander/<int:id>/'
@@ -44,5 +44,18 @@
 #'http://89.40.6.22:1234/api/delete-appointment/<int:id>/'
 #'http://89.40.6.22:1234/api/delete-ordonnance/<int:id>/'
 #'http://89.40.6.22:1234/api/delete-invoice/<int:id>/'
+
+
+#https://server.suivi.ma:3232/api/get-user/
+
+#https://server.suivi.ma:3232/api/get-doctor/
+#https://server.suivi.ma:3232/api/create-doctor/
+#https://server.suivi.ma:3232/api/update-doctor/<int:id>/
+#https://server.suivi.ma:3232/api/delete-doctor/<int:id>/
+
+#https://server.suivi.ma:3232/api/get-assistant/
+#https://server.suivi.ma:3232/api/create-assistant/
+#https://server.suivi.ma:3232/api/update-assistant/<int:id>/
+#https://server.suivi.ma:3232/api/delete-assistant/<int:id>/
 
 

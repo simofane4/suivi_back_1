@@ -1,4 +1,6 @@
 from dataclasses import field
+from pydoc import doc
+from ssl import create_default_context
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
@@ -18,7 +20,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2', 'email', 'first_name', 'last_name')
+        fields = ('id' , 'username', 'password', 'password2', 'email', 'first_name', 'last_name')
         extra_kwargs = {
             'first_name': {'required': True},
             'last_name': {'required': True}
@@ -44,6 +46,17 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
+class UpdateUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('pk' , 'username', 'email', 'first_name', 'last_name')
+        extra_kwargs = {
+            'first_name': {'required': True},
+            'last_name': {'required': True}
+        }
+       
+
 
 
 
@@ -52,10 +65,7 @@ class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
         fields = '__all__'
-    def save(self, **kwargs):
-        """Include default for read_only `user` field"""
-        kwargs["user"] = self.fields["user"].get_default()
-        return super().save(**kwargs)
+    
 
 
 
@@ -67,7 +77,7 @@ class CabinetSerializer(serializers.ModelSerializer):
 
 class SpecialiteSerializer(serializers.ModelSerializer):
     class Meta:
-        models = Specialite
+        model = Specialite
         fields = '__all__'
 
 
@@ -110,3 +120,70 @@ class AssistantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assistant
         fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = User
+        fields = (
+        "id", 
+        "last_login",
+        "username", 
+        "first_name", 
+        "last_name", 
+        "email", 
+        "groups",)
+
+class UserSz(serializers.ModelSerializer):
+    class Meta :
+        model = User
+        fields = (
+        "username", 
+        "first_name", 
+        "last_name", 
+        "email" 
+        )
+
+class SZer(serializers.ModelSerializer):
+    class Meta:
+        model = Specialite
+        fields = "__all__"
+
+class CaZer(serializers.ModelSerializer):
+    class Meta:
+        model = Cabinet
+        fields = '__all__'
+
+class GetDoctorSerialzer(serializers.ModelSerializer):
+    user = RegisterSerializer(required=True, many=False)
+    class Meta:
+        model = Doctor
+        fields = '__all__'  
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user_data.pop('password2')
+        create_user =  User.objects.create(**user_data)
+        create_doctor = Doctor.objects.create(user=create_user,**validated_data)
+        return create_doctor
+
+class UpdateDoctorSerializer(serializers.ModelSerializer):
+    user = UpdateUserSerializer()
+    class Meta:
+        model = Doctor
+        fields = '__all__'
+        read_only_fields = ('phone', )
+    
+    def update(self, instance, validated_data):
+        user_serializer = self.fields['user']
+        user_instance = instance.user
+        user_data = validated_data.pop('user')
+        user_serializer.update(user_instance,user_data)
+        instance = super().update(instance, validated_data)
+        return instance
+
+class GetAssistantSerializer(serializers.ModelSerializer):
+    user = UserSz()
+    cabinet = serializers.SlugRelatedField(slug_field='name',read_only=True)
+    class Meta : 
+        model = Assistant
+        fields = '__all__'
+    

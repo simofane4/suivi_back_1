@@ -144,3 +144,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:9000",
 ]
+
+SIMPLE_JWT = {
+
+'UPDATE_LAST_LOGIN': True,
+
+}
