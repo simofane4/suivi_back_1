@@ -5,10 +5,11 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
-from .views import HealthView
+from .views import DashboardStatsView, HealthView
 
 urlpatterns = [
     path("health/", HealthView.as_view(), name="health"),
+    path("dashboard/stats/", DashboardStatsView.as_view(), name="dashboard-stats"),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "docs/",
