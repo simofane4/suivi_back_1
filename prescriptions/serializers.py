@@ -100,6 +100,9 @@ class OrdonnanceSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         if not self._is_admin():
             validated_data["cabinet"] = user.cabinet
+        appointment = validated_data.get("appointment")
+        if "cabinet" not in validated_data and appointment is not None:
+            validated_data["cabinet"] = appointment.cabinet
         ordonnance = Ordonnance.objects.create(**validated_data)
         self._rebuild_lines(ordonnance, items)
         return ordonnance

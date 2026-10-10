@@ -113,7 +113,11 @@ class StaffSerializerMixin:
         password = validated_data.pop("password", None)
         if password:
             user.set_password(password)
-        if not self._is_admin():
+        if self._is_admin():
+            cabinet = validated_data.get("cabinet")
+            if cabinet is not None:
+                user.cabinet = cabinet
+        else:
             validated_data.pop("cabinet", None)
         user.save()
         return super().update(instance, validated_data)

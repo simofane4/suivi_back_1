@@ -1,0 +1,17 @@
+# Excludes boilerplate (migrations, tests, admin/apps, management) from the
+# coverage gate. QA-01 target: app code >= 70%.
+[run]
+source = accounts,patients,appointments,prescriptions,billing,catalog,core,suivi_back
+omit =
+    */migrations/*
+    */tests.py
+    */tests/*
+    */management/*
+    */__init__.py
+    */apps.py
+    */admin.py
+    */factories.py
+    */asgi.py
+    */wsgi.py
+[report]
+show_missing = True

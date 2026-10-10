@@ -53,10 +53,10 @@ class InvoiceViewSet(CabinetScopedQuerysetMixin, viewsets.ModelViewSet):
             or params.get("date_from", "").strip()
         )
         if date_from:
-            queryset = queryset.filter(date__gte=date_from)
+            queryset = queryset.filter(date__date__gte=date_from)
         date_to = params.get("date_to", "").strip()
         if date_to:
-            queryset = queryset.filter(date__lte=date_to)
+            queryset = queryset.filter(date__date__lte=date_to)
 
         return queryset.prefetch_related("items", "payments")
 

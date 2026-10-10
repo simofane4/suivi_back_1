@@ -162,7 +162,7 @@ QA: ............tests continus......................E2E
 
 ## 10. Phase 9 â€” Durcissement, tests, dÃ©ploiement (3 j BE / 1,5 j FE)
 
-- [ ] **QA-01** Tests back : auth, permissions, scoping cabinet, chevauchement, reliquats, PDF. Objectif â‰¥ 70 %. (1,5 j)
+- [x] **QA-01** Tests back : auth, permissions, scoping cabinet, chevauchement, reliquats, PDF. Objectif â‰¥ 70 %. (1,5 j)
 - [x] **BE-36** Remplacer `tests.py` factice ; seed de dÃ©mo conforme `MVP-PLAN.md Â§7`. (0,7 j)
 - [ ] **OPS-03** SÃ©curitÃ© prod : `DEBUG=False`, secrets, CORS restreint, HTTPS. (0,5 j)
 - [ ] **OPS-04** Docker compose full-stack (front + back) ; corriger `render.yaml` / `environment.prod.ts`. (0,5 j)

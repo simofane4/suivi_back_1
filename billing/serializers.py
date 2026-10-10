@@ -148,6 +148,8 @@ class InvoiceSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         if not self._is_admin():
             validated_data["cabinet"] = user.cabinet
+        if "cabinet" not in validated_data and appointment is not None:
+            validated_data["cabinet"] = appointment.cabinet
         if "organisme_ratio" not in validated_data:
             validated_data["organisme_ratio"] = self._default_ratio(appointment)
         if "recipient" not in validated_data:

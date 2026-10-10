@@ -53,6 +53,21 @@ class AppointmentSerializer(serializers.ModelSerializer):
         elif cabinet is None and instance is not None:
             cabinet = instance.cabinet
 
+        patient = attrs.get("patient") or getattr(instance, "patient", None)
+        if patient is not None and not is_admin and patient.cabinet_id != user.cabinet_id:
+            raise serializers.ValidationError(
+                {"patient": "Le patient n'appartient pas à votre cabinet."}
+            )
+        doctor = attrs.get("doctor")
+        if (
+            doctor is not None
+            and not is_admin
+            and doctor.cabinet_id != user.cabinet_id
+        ):
+            raise serializers.ValidationError(
+                {"doctor": "Ce praticien n'appartient pas à votre cabinet."}
+            )
+
         start = attrs.get("start") or (instance.start if instance else None)
         end = attrs.get("end") or (instance.end if instance else None)
 
@@ -89,6 +104,10 @@ class AppointmentSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         if not (user.is_superuser or getattr(user, "role", None) == ADMIN):
             validated_data["cabinet"] = user.cabinet
+        elif validated_data.get("cabinet") is None:
+            raise serializers.ValidationError(
+                {"cabinet": "Un administrateur doit préciser le cabinet."}
+            )
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
