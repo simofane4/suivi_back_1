@@ -65,11 +65,11 @@ QA: ............tests continus......................E2E
 
 ## 3. Phase 2 — Auth & rôles (2 j BE / 1 j FE)
 
-- [ ] **BE-08** User custom (ou User + champ `role`) + Cabinet lié. (0,5 j)
-- [ ] **BE-09** `POST /api/auth/token/`, `/refresh/`, `/verify/`. (0,4 j)
-- [ ] **BE-10** `GET /api/auth/me/` → `{id, username, first/last, email, is_active, role, cabinet_id}`. (0,4 j)
-- [ ] **BE-11** Permissions par rôle (`IsAdmin`, `IsDoctor`, `IsCabinetStaff`) + scoping queryset cabinet. (0,5 j)
-- [ ] **BE-12** Seed rôles/groupes + superuser admin. (0,2 j)
+- [x] **BE-08** User custom (ou User + champ `role`) + Cabinet lié. (0,5 j)
+- [x] **BE-09** `POST /api/auth/token/`, `/refresh/`, `/verify/`. (0,4 j)
+- [x] **BE-10** `GET /api/auth/me/` → `{id, username, first/last, email, is_active, role, cabinet_id}`. (0,4 j)
+- [x] **BE-11** Permissions par rôle (`IsAdmin`, `IsDoctor`, `IsCabinetStaff`) + scoping queryset cabinet. (0,5 j)
+- [x] **BE-12** Seed rôles/groupes + superuser admin. (0,2 j)
 - [ ] **FE-02** Basculer `auth.service.ts` sur le vrai back ; corriger `error.interceptor.ts` (refresh). (0,5 j)
       Réf : `core/service/auth.service.ts:55,77,90`, `core/interceptor/error.interceptor.ts:31`.
 - [ ] **FE-03** Guards/redirections par rôle finalisés. (0,5 j) Réf : `core/guard/auth.guard.ts`.
