@@ -110,10 +110,10 @@ QA: ............tests continus......................E2E
 
 ## 6. Phase 5 — Agenda / RDV (2,5 j BE / 2 j FE)
 
-- [ ] **BE-22** `Appointment` conforme (`start`, `end`, `motif`, `status`, `payed`, `patient_name`, timestamps). (0,7 j)
-- [ ] **BE-23** Anti-chevauchement (test correct, pas de `values_list('appointment')`). (0,6 j)
+- [x] **BE-22** `Appointment` conforme (`start`, `end`, `motif`, `status`, `payed`, `patient_name`, timestamps). (0,7 j)
+- [x] **BE-23** Anti-chevauchement (test correct, pas de `values_list('appointment')`). (0,6 j)
       Réf bug : `cab_g/views.py:246,385`.
-- [ ] **BE-24** `GET /api/appointments/agenda/?date=&praticien=` + `POST .../cancel/` (ou statut). (0,6 j)
+- [x] **BE-24** `GET /api/appointments/agenda/?date=&praticien=` + `POST .../cancel/` (ou statut). (0,6 j)
 - [ ] **BE-25** Filtres `date`, `date_from`, `date_to`, `patient`, `payed`, `search`, `ordering`. (0,6 j)
 - [ ] **FE-07** Vue calendrier jour/semaine (FullCalendar déjà installé). (1,5 j)
 - [ ] **FE-08** Formulaire RDV + changement de statut. (0,5 j)
@@ -192,7 +192,7 @@ QA: ............tests continus......................E2E
 - [x] P2 Auth bout-en-bout
 - [x] P3 Référentiels branchés
 - [x] P4 Dossier médical
-- [ ] P5 Agenda
+- [x] P5 Agenda
 - [ ] P6 Ordonnances + PDF
 - [ ] P7 Facturation + PDF
 - [ ] P8 Dashboard
