@@ -28,3 +28,7 @@ db.sqlite3-journal
 Thumbs.db
 .idea/
 .vscode/
+
+.coverage
+htmlcov/
+.coverage.*
