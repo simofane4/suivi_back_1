@@ -95,10 +95,10 @@ QA: ............tests continus......................E2E
 
 ## 5. Phase 4 — Patients & dossier médical (3 j BE / 2,5 j FE)
 
-- [ ] **BE-18** `Patient` conforme (`assurance`, `numero_adherent`, `cabinet_name`, timestamps) + `/api/patients/` (filtres, ordering, upload `img`). (0,8 j)
-- [ ] **BE-19** `/api/patient-files/` (multipart, max 5 Mo, `patient_name`, `download_url`). (0,5 j)
-- [ ] **BE-20** Modèles `Antecedent`, `Allergie`, `Observation` (ICD-10) + endpoints CRUD. (1 j)
-- [ ] **BE-21** `GET /api/patients/{id}/dossier/` (obs + antécédents + allergies). (0,7 j)
+- [x] **BE-18** `Patient` conforme (`assurance`, `numero_adherent`, `cabinet_name`, timestamps) + `/api/patients/` (filtres, ordering, upload `img`). (0,8 j)
+- [x] **BE-19** `/api/patient-files/` (multipart, max 5 Mo, `patient_name`, `download_url`). (0,5 j)
+- [x] **BE-20** Modèles `Antecedent`, `Allergie`, `Observation` (ICD-10) + endpoints CRUD. (1 j)
+- [x] **BE-21** `GET /api/patients/{id}/dossier/` (obs + antécédents + allergies). (0,7 j)
 - [ ] **FE-05** Fiche patient à onglets (infos / antécédents / allergies / observations). (1,5 j)
       Réf : routes actuelles limitées à la liste `admin/patient/patient-routing.module.ts:6-15`.
 - [ ] **FE-06** Formulaire observation avec sélecteur diagnostic ICD-10 + versionnage. (1 j)
@@ -191,7 +191,7 @@ QA: ............tests continus......................E2E
 - [x] P1 Back démarre + pagination/erreurs
 - [x] P2 Auth bout-en-bout
 - [x] P3 Référentiels branchés
-- [ ] P4 Dossier médical
+- [x] P4 Dossier médical
 - [ ] P5 Agenda
 - [ ] P6 Ordonnances + PDF
 - [ ] P7 Facturation + PDF
