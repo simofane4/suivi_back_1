@@ -39,8 +39,8 @@ QA: ............tests continus......................E2E
 
 ## 1. Phase 0 — Cadrage & contrat (0,5 j)
 
-- [ ] **OPS-01** Geler `API.md` comme référence unique ; documenter tout écart comme bug. (0,5 j)
-- [ ] **OPS-02** Mettre en place le dépôt mono-projet (front + back) ou garder 2 repos synchronisés. (0,5 j)
+- [x] **OPS-01** Geler `API.md` comme référence unique ; documenter tout écart comme bug. (0,5 j)
+- [x] **OPS-02** Mettre en place le dépôt mono-projet (front + back) ou garder 2 repos synchronisés. (0,5 j)
 - [ ] **FE-01** Remplacer `fake-backend` par un mock généré depuis OpenAPI (ou `json-server`). (0,5 j)
       Réf : `hos_ma_front/src/app/app.module.ts:16,82`.
 
@@ -50,14 +50,14 @@ QA: ............tests continus......................E2E
 
 ## 2. Phase 1 — Fondations backend (2 j)
 
-- [ ] **BE-01** `requirements.txt` complet (Django, DRF, simplejwt, corsheaders, drf-spectacular, Pillow, reportlab/weasyprint). (0,2 j)
-- [ ] **BE-02** Settings découpés dev/prod via variables d'env (`SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS`, `MEDIA_ROOT`). (0,5 j)
+- [x] **BE-01** `requirements.txt` complet (Django, DRF, simplejwt, corsheaders, drf-spectacular, Pillow, reportlab/weasyprint). (0,2 j)
+- [x] **BE-02** Settings découpés dev/prod via variables d'env (`SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS`, `MEDIA_ROOT`). (0,5 j)
       Réf bug : `suivi_back_1/suivi_back/settings.py:12,16,134,139`.
-- [ ] **BE-03** `REST_FRAMEWORK` : pagination (`DEFAULT_PAGINATION_CLASS`, 50/max 200), auth JWT, renderer/exception custom. (0,4 j)
-- [ ] **BE-04** Handler d'exceptions → format `{error:{status,code,detail,fields}}`. (0,4 j)
-- [ ] **BE-05** Structure en apps : `core`, `accounts`, `patients`, `appointments`, `prescriptions`, `billing`. (0,3 j)
-- [ ] **BE-06** `core` : `TimeStampedModel`, mixin de scoping cabinet, permissions de base. (0,5 j)
-- [ ] **BE-07** Endpoints `/api/health/`, `/api/schema/`, `/api/docs/`, `/api/redoc/`. (0,3 j)
+- [x] **BE-03** `REST_FRAMEWORK` : pagination (`DEFAULT_PAGINATION_CLASS`, 50/max 200), auth JWT, renderer/exception custom. (0,4 j)
+- [x] **BE-04** Handler d'exceptions → format `{error:{status,code,detail,fields}}`. (0,4 j)
+- [x] **BE-05** Structure en apps : `core`, `accounts`, `patients`, `appointments`, `prescriptions`, `billing`. (0,3 j)
+- [x] **BE-06** `core` : `TimeStampedModel`, mixin de scoping cabinet, permissions de base. (0,5 j)
+- [x] **BE-07** Endpoints `/api/health/`, `/api/schema/`, `/api/docs/`, `/api/redoc/`. (0,3 j)
 
 **DoD** : le serveur démarre, `/health/` répond, la pagination et les erreurs sont conformes, OpenAPI se génère.
 
@@ -188,7 +188,7 @@ QA: ............tests continus......................E2E
 ## 12. Suivi du chemin critique (à cocher au fil de l'eau)
 
 - [ ] P0 Contrat gelé + mocks
-- [ ] P1 Back démarre + pagination/erreurs
+- [x] P1 Back démarre + pagination/erreurs
 - [ ] P2 Auth bout-en-bout
 - [ ] P3 Référentiels branchés
 - [ ] P4 Dossier médical
