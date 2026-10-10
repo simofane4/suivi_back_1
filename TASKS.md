@@ -81,11 +81,11 @@ QA: ............tests continus......................E2E
 
 ## 4. Phase 3 — Référentiels & utilisateurs (2 j BE / 0,5 j FE)
 
-- [ ] **BE-13** `Cabinet` + `/api/cabinets/` (CRUD, `created_at/updated_at`). (0,4 j)
-- [ ] **BE-14** `Specialite` + `/api/specialites/` (catalogue global). (0,2 j)
-- [ ] **BE-15** `/api/medicaments/`, `/api/actes-demandes/`, `/api/actes-faits/` (scopés cabinet). (0,6 j)
-- [ ] **BE-16** `/api/doctors/`, `/api/assistants/` avec `user`, `cabinet_name`, `specialiste_name`, timestamps. (0,5 j)
-- [ ] **BE-17** `/api/users/` (lecture seule). (0,3 j)
+- [x] **BE-13** `Cabinet` + `/api/cabinets/` (CRUD, `created_at/updated_at`). (0,4 j)
+- [x] **BE-14** `Specialite` + `/api/specialites/` (catalogue global). (0,2 j)
+- [x] **BE-15** `/api/medicaments/`, `/api/actes-demandes/`, `/api/actes-faits/` (scopés cabinet). (0,6 j)
+- [x] **BE-16** `/api/doctors/`, `/api/assistants/` avec `user`, `cabinet_name`, `specialiste_name`, timestamps. (0,5 j)
+- [x] **BE-17** `/api/users/` (lecture seule). (0,3 j)
 - [ ] **FE-04** Vérifier le mapping des 4 catalogues + écrans admin contre le vrai back. (0,5 j)
       Réf : `admin/catalogue/catalogue.config.ts:41-85`, `layout/sidebar/sidebar-items.ts:12-26`.
 
@@ -189,8 +189,8 @@ QA: ............tests continus......................E2E
 
 - [ ] P0 Contrat gelé + mocks
 - [x] P1 Back démarre + pagination/erreurs
-- [ ] P2 Auth bout-en-bout
-- [ ] P3 Référentiels branchés
+- [x] P2 Auth bout-en-bout
+- [x] P3 Référentiels branchés
 - [ ] P4 Dossier médical
 - [ ] P5 Agenda
 - [ ] P6 Ordonnances + PDF

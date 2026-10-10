@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     # Local
     "core",
     "accounts",
+    "catalog",
     "patients",
     "appointments",
     "prescriptions",

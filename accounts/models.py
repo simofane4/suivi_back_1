@@ -50,5 +50,57 @@ class User(AbstractUser):
         related_name="users",
     )
 
+    class Meta:
+        ordering = ["id"]
+
     def __str__(self):
         return self.get_full_name() or self.username
+
+
+class StaffBase(TimeStampedModel):
+    """Shared columns for doctors and assistants."""
+
+    class Gender(models.TextChoices):
+        MALE = "Male", "Male"
+        FEMALE = "Female", "Female"
+
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="%(class)s_profile"
+    )
+    cabinet = models.ForeignKey(
+        Cabinet, on_delete=models.CASCADE, related_name="%(class)ss"
+    )
+    img = models.ImageField(upload_to="staff/", null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=Gender.choices)
+    phone = models.CharField(max_length=30, blank=True, default="")
+    address = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+
+class Doctor(StaffBase):
+    inp = models.CharField(max_length=50, blank=True, default="")
+    specialiste = models.ForeignKey(
+        Specialite,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="doctors",
+    )
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self):
+        return f"Dr {self.user.get_full_name() or self.user.username}"
+
+
+class Assistant(StaffBase):
+    cin = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self):
+        return self.user.get_full_name() or self.user.username
