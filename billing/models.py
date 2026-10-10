@@ -119,7 +119,8 @@ class Invoice(TimeStampedModel):
 
     def refresh_status(self):
         """Recompute `status`/`payed` from the recorded payments."""
-        if self.total_paid >= self.amount - CENT * 0:
+        amount = Decimal(str(self.amount))
+        if self.total_paid >= amount:
             self.status = self.Status.PAID
         elif self.total_paid > 0:
             self.status = self.Status.PARTIALLY_PAID
