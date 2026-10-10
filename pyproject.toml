@@ -1,0 +1,215 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "suivi-back"
+version = "2.0.0"
+description = "Clinic management backend: cabinets, staff, patients, appointments, prescriptions and billing."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Development Team"}]
+keywords = ["django", "rest-api", "clinic", "healthcare", "multi-tenant"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: Django :: 6.0",
+    "Intended Audience :: Healthcare Industry",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: French",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Medical/Dental",
+]
+
+dependencies = [
+    "Django==6.0.2",
+    "djangorestframework==3.18.1",
+    "djangorestframework-simplejwt==5.5.1",
+    "django-cors-headers==4.9.0",
+    "django-filter==26.1",
+    "drf-spectacular==0.30.0",
+    "Pillow==12.3.0",
+    "python-dotenv==1.2.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==7.4.3",
+    "pytest-django==4.7.0",
+    "pytest-cov==4.1.0",
+    "pytest-xdist==3.5.0",
+    "factory-boy==3.3.0",
+    "faker==40.40.0",
+    "black==24.1.1",
+    "ruff==0.2.1",
+    "mypy==1.8.0",
+    "django-stubs==4.2.7",
+    "djangorestframework-stubs==3.14.5",
+    "types-pillow==10.2.0.20240520",
+    "pre-commit==3.6.0",
+    "coverage==7.4.1",
+]
+
+prod = [
+    "gunicorn==21.2.0",
+    "psycopg2-binary==2.9.9",
+    "whitenoise==6.6.0",
+    "django-cors-headers==4.9.0",
+]
+
+[project.urls]
+Repository = "https://github.com/yourusername/suivi_back_1"
+Documentation = "https://github.com/yourusername/suivi_back_1/blob/main/README.md"
+Issues = "https://github.com/yourusername/suivi_back_1/issues"
+
+# Black formatting configuration
+[tool.black]
+target-version = ["py311", "py312", "py313"]
+line-length = 100
+include = '\.pyi?$'
+exclude = '''
+    /(
+        \.git
+        | \.hg
+        | \.mypy_cache
+        | \.tox
+        | \.venv
+        | _build
+        | buck-out
+        | build
+        | dist
+        | migrations
+    )/
+'''
+extend-exclude = '''
+    /(
+        # directories
+        \.eggs
+        | \.git
+        | \.history
+        | \.mypy_cache
+        | \.pytest_cache
+        | \.ruff_cache
+        | \.tox
+        | \.venv
+        | venv
+        | __pycache__
+        | static
+        | media
+        | htmlcov
+    )/
+'''
+
+# isort configuration (compatible with black)
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_mode = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+known_first_party = ["suivi_back", "accounts", "cabinets", "patients", "clinical", "billing", "common"]
+known_django = ["django", "rest_framework", "corsheaders", "django_filters", "drf_spectacular"]
+sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+skip_gitignore = true
+
+# Mypy type checking configuration
+[tool.mypy]
+python_version = "3.11"
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_optional = true
+plugins = [
+    "mypy_django_plugin.main",
+    "rest_framework.mypy_plugin",
+]
+exclude = [
+    "migrations/",
+    "venv/",
+    ".venv/",
+]
+
+[[tool.mypy.overrides]]
+module = "*.migrations.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = [
+    "faker.*",
+    "factory.*",
+]
+ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "suivi_back.settings.dev"
+
+# Coverage configuration
+[tool.coverage.run]
+source = [
+    "accounts",
+    "cabinets",
+    "patients",
+    "clinical",
+    "billing",
+    "common",
+]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/.venv/*",
+    "*/virtualenv/*",
+    "*/.pytest_cache/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    "if (sys\\.)?version_info",
+]
+precision = 2
+show_missing = true
+skip_covered = false
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+# Pytest configuration
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "suivi_back.settings.dev"
+django_find_project = false
+python_files = ["test_*.py", "*_test.py", "tests.py"]
+python_classes = ["Test*", "*Tests"]
+python_functions = ["test_*"]
+addopts = "--strict-markers --tb=short --disable-warnings"
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "e2e: marks tests as end-to-end tests",
+]
+norecursedirs = [".git", ".venv", "venv", "build", "dist", "__pycache__"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]

@@ -1,0 +1,19 @@
+# Development Dockerfile
+FROM python:3.12-slim
+
+# Install system deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install Python deps (including dev dependencies)
+COPY requirements.txt requirements-dev.txt ./
+RUN pip install --no-cache-dir -r requirements-dev.txt
+
+# Expose port
+EXPOSE 8000
+
+# Default command (overridden by docker-compose)
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

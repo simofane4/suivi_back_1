@@ -1,0 +1,26 @@
+[flake8]
+# Note: Prefer ruff for actual linting. This file is for legacy compatibility.
+max-line-length = 100
+exclude =
+    .git
+    __pycache__
+    .venv
+    venv
+    .pytest_cache
+    .mypy_cache
+    migrations
+    static
+    media
+    build
+    dist
+
+ignore =
+    E203
+    W503
+    W504
+
+per-file-ignores =
+    __init__.py: F401
+    settings/base.py: E501
+    settings/dev.py: E501
+    settings/prod.py: E501

@@ -1,0 +1,46 @@
+# Render blueprint for the Django API.
+# Deploy: New > Blueprint > point at this repo. Render reads this file and
+# creates the service + database together.
+services:
+  - type: web
+    name: suivi-back-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: frankfurt
+    # The container filesystem is wiped on every deploy and on every restart, so
+    # patient document uploads must live on a mounted disk or they are silently
+    # deleted. 1 GB is the smallest size Render offers.
+    disk:
+      name: suivi-media
+      mountPath: /app/media
+      sizeGB: 1
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: suivi_back.settings.prod
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      # Narrower than "*.onrender.com": only the hosts this API is actually
+      # served on. Add any custom domain here too.
+      - key: DJANGO_ALLOWED_HOSTS
+        value: "suivi-back-api.onrender.com"
+      # Must match the frontend's real hostname exactly, or the browser blocks
+      # every API call from the browser.
+      - key: DJANGO_CORS_ALLOWED_ORIGINS
+        value: "https://hos-ma-front.onrender.com"
+      - key: DJANGO_TIME_ZONE
+        value: "Africa/Casablanca"
+      - key: DJANGO_LANGUAGE_CODE
+        value: "fr"
+      # Points MEDIA_ROOT at the mounted disk (see settings/base.py).
+      - key: DJANGO_MEDIA_ROOT
+        value: /app/media
+
+databases:
+  - name: suivi-db
+    databaseName: suivi_db
+    user: suivi_user
+    plan: starter
+    region: frankfurt

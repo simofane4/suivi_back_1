@@ -1,0 +1,39 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+      - /app/__pycache__
+      - /app/.pytest_cache
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=suivi_back.settings.dev
+      - DJANGO_DEBUG=True
+      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+      - DJANGO_CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:4200,http://localhost:5173
+      - DJANGO_DB_PATH=/app/db.sqlite3
+      - DJANGO_TIME_ZONE=Africa/Casablanca
+      - DJANGO_LANGUAGE_CODE=fr
+    env_file:
+      - .env.dev
+    stdin_open: true
+    tty: true
+
+  # Optional: PostgreSQL for dev (uncomment if needed)
+  # db:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_DB: suivi_dev
+  #     POSTGRES_USER: suivi_user
+  #     POSTGRES_PASSWORD: suivi_pass
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+# volumes:
+#   postgres_data:

@@ -1,0 +1,4134 @@
+openapi: 3.0.3
+info:
+  title: Suivi Cabinet API
+  version: 2.0.0
+  description: 'Clinic management backend: cabinets, staff, patients, appointments,
+    prescriptions and billing.'
+paths:
+  /api/:
+    get:
+      operationId: root_retrieve
+      description: Index of the main resources.
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/actes-demandes/:
+    get:
+      operationId: actes_demandes_list
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: query
+        name: cabinet
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      - in: query
+        name: title
+        schema:
+          type: string
+      tags:
+      - actes-demandes
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedActeDemanderList'
+          description: ''
+    post:
+      operationId: actes_demandes_create
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      tags:
+      - actes-demandes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActeDemanderRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ActeDemanderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ActeDemanderRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActeDemander'
+          description: ''
+  /api/actes-demandes/{id}/:
+    get:
+      operationId: actes_demandes_retrieve
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) acte demander.
+        required: true
+      tags:
+      - actes-demandes
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActeDemander'
+          description: ''
+    put:
+      operationId: actes_demandes_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) acte demander.
+        required: true
+      tags:
+      - actes-demandes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActeDemanderRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ActeDemanderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ActeDemanderRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActeDemander'
+          description: ''
+    patch:
+      operationId: actes_demandes_partial_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) acte demander.
+        required: true
+      tags:
+      - actes-demandes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedActeDemanderRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedActeDemanderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedActeDemanderRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActeDemander'
+          description: ''
+    delete:
+      operationId: actes_demandes_destroy
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) acte demander.
+        required: true
+      tags:
+      - actes-demandes
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/actes-faits/:
+    get:
+      operationId: actes_faits_list
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      tags:
+      - actes-faits
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedActeFaitList'
+          description: ''
+    post:
+      operationId: actes_faits_create
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      tags:
+      - actes-faits
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActeFaitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ActeFaitRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ActeFaitRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActeFait'
+          description: ''
+  /api/actes-faits/{id}/:
+    get:
+      operationId: actes_faits_retrieve
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) acte fait.
+        required: true
+      tags:
+      - actes-faits
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActeFait'
+          description: ''
+    put:
+      operationId: actes_faits_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) acte fait.
+        required: true
+      tags:
+      - actes-faits
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActeFaitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ActeFaitRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ActeFaitRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActeFait'
+          description: ''
+    patch:
+      operationId: actes_faits_partial_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) acte fait.
+        required: true
+      tags:
+      - actes-faits
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedActeFaitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedActeFaitRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedActeFaitRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActeFait'
+          description: ''
+    delete:
+      operationId: actes_faits_destroy
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) acte fait.
+        required: true
+      tags:
+      - actes-faits
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/appointments/:
+    get:
+      operationId: appointments_list
+      description: |-
+        Appointments of the caller's cabinet.
+
+        Overlap detection runs in `AppointmentSerializer.validate`, so it returns a
+        400 with the conflicting range instead of the previous 201.
+      parameters:
+      - in: query
+        name: cabinet
+        schema:
+          type: integer
+      - in: query
+        name: date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: date_from
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: date_to
+        schema:
+          type: string
+          format: date
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      - in: query
+        name: patient
+        schema:
+          type: integer
+      - in: query
+        name: payed
+        schema:
+          type: boolean
+      tags:
+      - appointments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAppointmentList'
+          description: ''
+    post:
+      operationId: appointments_create
+      description: |-
+        Appointments of the caller's cabinet.
+
+        Overlap detection runs in `AppointmentSerializer.validate`, so it returns a
+        400 with the conflicting range instead of the previous 201.
+      tags:
+      - appointments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AppointmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AppointmentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+          description: ''
+  /api/appointments/{id}/:
+    get:
+      operationId: appointments_retrieve
+      description: |-
+        Appointments of the caller's cabinet.
+
+        Overlap detection runs in `AppointmentSerializer.validate`, so it returns a
+        400 with the conflicting range instead of the previous 201.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) appointment.
+        required: true
+      tags:
+      - appointments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+          description: ''
+    put:
+      operationId: appointments_update
+      description: |-
+        Appointments of the caller's cabinet.
+
+        Overlap detection runs in `AppointmentSerializer.validate`, so it returns a
+        400 with the conflicting range instead of the previous 201.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) appointment.
+        required: true
+      tags:
+      - appointments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AppointmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AppointmentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+          description: ''
+    patch:
+      operationId: appointments_partial_update
+      description: |-
+        Appointments of the caller's cabinet.
+
+        Overlap detection runs in `AppointmentSerializer.validate`, so it returns a
+        400 with the conflicting range instead of the previous 201.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) appointment.
+        required: true
+      tags:
+      - appointments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAppointmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAppointmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAppointmentRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+          description: ''
+    delete:
+      operationId: appointments_destroy
+      description: |-
+        Appointments of the caller's cabinet.
+
+        Overlap detection runs in `AppointmentSerializer.validate`, so it returns a
+        400 with the conflicting range instead of the previous 201.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) appointment.
+        required: true
+      tags:
+      - appointments
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/assistants/:
+    get:
+      operationId: assistants_list
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: query
+        name: cabinet
+        schema:
+          type: integer
+      - in: query
+        name: gender
+        schema:
+          type: string
+          enum:
+          - Female
+          - Male
+        description: |-
+          * `Female` - Female
+          * `Male` - Male
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      tags:
+      - assistants
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAssistantList'
+          description: ''
+    post:
+      operationId: assistants_create
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      tags:
+      - assistants
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssistantCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssistantCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssistantCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistantCreate'
+          description: ''
+  /api/assistants/{id}/:
+    get:
+      operationId: assistants_retrieve
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) assistant.
+        required: true
+      tags:
+      - assistants
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assistant'
+          description: ''
+    put:
+      operationId: assistants_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) assistant.
+        required: true
+      tags:
+      - assistants
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssistantUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssistantUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssistantUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistantUpdate'
+          description: ''
+    patch:
+      operationId: assistants_partial_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) assistant.
+        required: true
+      tags:
+      - assistants
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAssistantUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAssistantUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAssistantUpdateRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistantUpdate'
+          description: ''
+    delete:
+      operationId: assistants_destroy
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) assistant.
+        required: true
+      tags:
+      - assistants
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/auth/me/:
+    get:
+      operationId: auth_me_retrieve
+      description: The authenticated account, including its role and cabinet.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/auth/token/:
+    post:
+      operationId: auth_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleTokenObtainPairRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RoleTokenObtainPairRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RoleTokenObtainPairRequest'
+        required: true
+      responses:
+        '200':
+          description: No response body
+  /api/auth/token/refresh/:
+    post:
+      operationId: auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/auth/token/verify/:
+    post:
+      operationId: auth_token_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+        required: true
+      responses:
+        '200':
+          description: No response body
+  /api/cabinets/:
+    get:
+      operationId: cabinets_list
+      description: |-
+        Cabinets.
+
+        Any staff member can read; only an admin can create, modify or delete one.
+        A non-admin sees just their own clinic.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      tags:
+      - cabinets
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCabinetList'
+          description: ''
+    post:
+      operationId: cabinets_create
+      description: |-
+        Cabinets.
+
+        Any staff member can read; only an admin can create, modify or delete one.
+        A non-admin sees just their own clinic.
+      tags:
+      - cabinets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CabinetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CabinetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CabinetRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cabinet'
+          description: ''
+  /api/cabinets/{id}/:
+    get:
+      operationId: cabinets_retrieve
+      description: |-
+        Cabinets.
+
+        Any staff member can read; only an admin can create, modify or delete one.
+        A non-admin sees just their own clinic.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) cabinet.
+        required: true
+      tags:
+      - cabinets
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cabinet'
+          description: ''
+    put:
+      operationId: cabinets_update
+      description: |-
+        Cabinets.
+
+        Any staff member can read; only an admin can create, modify or delete one.
+        A non-admin sees just their own clinic.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) cabinet.
+        required: true
+      tags:
+      - cabinets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CabinetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CabinetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CabinetRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cabinet'
+          description: ''
+    patch:
+      operationId: cabinets_partial_update
+      description: |-
+        Cabinets.
+
+        Any staff member can read; only an admin can create, modify or delete one.
+        A non-admin sees just their own clinic.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) cabinet.
+        required: true
+      tags:
+      - cabinets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCabinetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCabinetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCabinetRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cabinet'
+          description: ''
+    delete:
+      operationId: cabinets_destroy
+      description: |-
+        Cabinets.
+
+        Any staff member can read; only an admin can create, modify or delete one.
+        A non-admin sees just their own clinic.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) cabinet.
+        required: true
+      tags:
+      - cabinets
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/doctors/:
+    get:
+      operationId: doctors_list
+      description: |-
+        Doctors of the caller's cabinet.
+
+        Creating a doctor also creates its login. Only an admin may create, modify
+        or delete staff, so writes are admin-gated; the queryset is cabinet-scoped
+        so staff only ever read their own clinic.
+      parameters:
+      - in: query
+        name: cabinet
+        schema:
+          type: integer
+      - in: query
+        name: gender
+        schema:
+          type: string
+          enum:
+          - Female
+          - Male
+        description: |-
+          * `Female` - Female
+          * `Male` - Male
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      - in: query
+        name: specialiste
+        schema:
+          type: integer
+      tags:
+      - doctors
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDoctorList'
+          description: ''
+    post:
+      operationId: doctors_create
+      description: |-
+        Doctors of the caller's cabinet.
+
+        Creating a doctor also creates its login. Only an admin may create, modify
+        or delete staff, so writes are admin-gated; the queryset is cabinet-scoped
+        so staff only ever read their own clinic.
+      tags:
+      - doctors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoctorCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoctorCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorCreate'
+          description: ''
+  /api/doctors/{id}/:
+    get:
+      operationId: doctors_retrieve
+      description: |-
+        Doctors of the caller's cabinet.
+
+        Creating a doctor also creates its login. Only an admin may create, modify
+        or delete staff, so writes are admin-gated; the queryset is cabinet-scoped
+        so staff only ever read their own clinic.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) doctor.
+        required: true
+      tags:
+      - doctors
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+          description: ''
+    put:
+      operationId: doctors_update
+      description: |-
+        Doctors of the caller's cabinet.
+
+        Creating a doctor also creates its login. Only an admin may create, modify
+        or delete staff, so writes are admin-gated; the queryset is cabinet-scoped
+        so staff only ever read their own clinic.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) doctor.
+        required: true
+      tags:
+      - doctors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoctorUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoctorUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorUpdate'
+          description: ''
+    patch:
+      operationId: doctors_partial_update
+      description: |-
+        Doctors of the caller's cabinet.
+
+        Creating a doctor also creates its login. Only an admin may create, modify
+        or delete staff, so writes are admin-gated; the queryset is cabinet-scoped
+        so staff only ever read their own clinic.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) doctor.
+        required: true
+      tags:
+      - doctors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDoctorUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDoctorUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDoctorUpdateRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorUpdate'
+          description: ''
+    delete:
+      operationId: doctors_destroy
+      description: |-
+        Doctors of the caller's cabinet.
+
+        Creating a doctor also creates its login. Only an admin may create, modify
+        or delete staff, so writes are admin-gated; the queryset is cabinet-scoped
+        so staff only ever read their own clinic.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) doctor.
+        required: true
+      tags:
+      - doctors
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/health/:
+    get:
+      operationId: health_retrieve
+      description: |-
+        Liveness probe. Replaces the old `/hello/`, which crashed for any user
+        without a linked doctor profile.
+      tags:
+      - health
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/invoices/:
+    get:
+      operationId: invoices_list
+      description: |-
+        Invoices attached to the caller's cabinet's appointments.
+
+        Scoping goes through `appointment__cabinet`. The old implementation filtered
+        `recipient` -- a foreign key to `auth_user` -- against a cabinet id, so the
+        endpoint never returned the caller's own invoices.
+      parameters:
+      - in: query
+        name: amount
+        schema:
+          type: number
+      - in: query
+        name: appointment
+        schema:
+          type: integer
+      - in: query
+        name: date_from
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: date_to
+        schema:
+          type: string
+          format: date
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      - in: query
+        name: payed
+        schema:
+          type: boolean
+      tags:
+      - invoices
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInvoiceList'
+          description: ''
+    post:
+      operationId: invoices_create
+      description: |-
+        Invoices attached to the caller's cabinet's appointments.
+
+        Scoping goes through `appointment__cabinet`. The old implementation filtered
+        `recipient` -- a foreign key to `auth_user` -- against a cabinet id, so the
+        endpoint never returned the caller's own invoices.
+      tags:
+      - invoices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InvoiceRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InvoiceRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+          description: ''
+  /api/invoices/{id}/:
+    get:
+      operationId: invoices_retrieve
+      description: |-
+        Invoices attached to the caller's cabinet's appointments.
+
+        Scoping goes through `appointment__cabinet`. The old implementation filtered
+        `recipient` -- a foreign key to `auth_user` -- against a cabinet id, so the
+        endpoint never returned the caller's own invoices.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) invoice.
+        required: true
+      tags:
+      - invoices
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+          description: ''
+    put:
+      operationId: invoices_update
+      description: |-
+        Invoices attached to the caller's cabinet's appointments.
+
+        Scoping goes through `appointment__cabinet`. The old implementation filtered
+        `recipient` -- a foreign key to `auth_user` -- against a cabinet id, so the
+        endpoint never returned the caller's own invoices.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) invoice.
+        required: true
+      tags:
+      - invoices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InvoiceRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InvoiceRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+          description: ''
+    patch:
+      operationId: invoices_partial_update
+      description: |-
+        Invoices attached to the caller's cabinet's appointments.
+
+        Scoping goes through `appointment__cabinet`. The old implementation filtered
+        `recipient` -- a foreign key to `auth_user` -- against a cabinet id, so the
+        endpoint never returned the caller's own invoices.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) invoice.
+        required: true
+      tags:
+      - invoices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInvoiceRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInvoiceRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInvoiceRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+          description: ''
+    delete:
+      operationId: invoices_destroy
+      description: |-
+        Invoices attached to the caller's cabinet's appointments.
+
+        Scoping goes through `appointment__cabinet`. The old implementation filtered
+        `recipient` -- a foreign key to `auth_user` -- against a cabinet id, so the
+        endpoint never returned the caller's own invoices.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) invoice.
+        required: true
+      tags:
+      - invoices
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/invoices/unpaid/:
+    get:
+      operationId: invoices_unpaid_retrieve
+      description: Outstanding invoices for the caller's cabinet.
+      tags:
+      - invoices
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+          description: ''
+  /api/me/:
+    get:
+      operationId: me_retrieve
+      description: The authenticated account, including its role and cabinet.
+      tags:
+      - me
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/medicaments/:
+    get:
+      operationId: medicaments_list
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      tags:
+      - medicaments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMedicamentList'
+          description: ''
+    post:
+      operationId: medicaments_create
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      tags:
+      - medicaments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicamentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MedicamentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MedicamentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medicament'
+          description: ''
+  /api/medicaments/{id}/:
+    get:
+      operationId: medicaments_retrieve
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) medicament.
+        required: true
+      tags:
+      - medicaments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medicament'
+          description: ''
+    put:
+      operationId: medicaments_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) medicament.
+        required: true
+      tags:
+      - medicaments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicamentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MedicamentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MedicamentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medicament'
+          description: ''
+    patch:
+      operationId: medicaments_partial_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) medicament.
+        required: true
+      tags:
+      - medicaments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMedicamentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMedicamentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMedicamentRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medicament'
+          description: ''
+    delete:
+      operationId: medicaments_destroy
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) medicament.
+        required: true
+      tags:
+      - medicaments
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/ordonnances/:
+    get:
+      operationId: ordonnances_list
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      tags:
+      - ordonnances
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOrdonnanceList'
+          description: ''
+    post:
+      operationId: ordonnances_create
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      tags:
+      - ordonnances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdonnanceRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrdonnanceRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrdonnanceRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ordonnance'
+          description: ''
+  /api/ordonnances/{id}/:
+    get:
+      operationId: ordonnances_retrieve
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) ordonnance.
+        required: true
+      tags:
+      - ordonnances
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ordonnance'
+          description: ''
+    put:
+      operationId: ordonnances_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) ordonnance.
+        required: true
+      tags:
+      - ordonnances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdonnanceRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrdonnanceRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrdonnanceRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ordonnance'
+          description: ''
+    patch:
+      operationId: ordonnances_partial_update
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) ordonnance.
+        required: true
+      tags:
+      - ordonnances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrdonnanceRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedOrdonnanceRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedOrdonnanceRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ordonnance'
+          description: ''
+    delete:
+      operationId: ordonnances_destroy
+      description: |-
+        Filter `get_queryset` down to the caller's cabinet.
+
+        Set `cabinet_field` on the view to the path from this model to its cabinet,
+        or override `scope_queryset` when the relation is not a simple field.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) ordonnance.
+        required: true
+      tags:
+      - ordonnances
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/patient-files/:
+    get:
+      operationId: patient_files_list
+      description: |-
+        Documents attached to a patient.
+
+        The `PatientFile` model existed with no endpoint at all, so uploads were
+        impossible through the API.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      tags:
+      - patient-files
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPatientFileList'
+          description: ''
+    post:
+      operationId: patient_files_create
+      description: |-
+        Documents attached to a patient.
+
+        The `PatientFile` model existed with no endpoint at all, so uploads were
+        impossible through the API.
+      tags:
+      - patient-files
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatientFileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatientFileRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientFile'
+          description: ''
+  /api/patient-files/{id}/:
+    get:
+      operationId: patient_files_retrieve
+      description: |-
+        Documents attached to a patient.
+
+        The `PatientFile` model existed with no endpoint at all, so uploads were
+        impossible through the API.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) patient file.
+        required: true
+      tags:
+      - patient-files
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientFile'
+          description: ''
+    put:
+      operationId: patient_files_update
+      description: |-
+        Documents attached to a patient.
+
+        The `PatientFile` model existed with no endpoint at all, so uploads were
+        impossible through the API.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) patient file.
+        required: true
+      tags:
+      - patient-files
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatientFileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatientFileRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientFile'
+          description: ''
+    patch:
+      operationId: patient_files_partial_update
+      description: |-
+        Documents attached to a patient.
+
+        The `PatientFile` model existed with no endpoint at all, so uploads were
+        impossible through the API.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) patient file.
+        required: true
+      tags:
+      - patient-files
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPatientFileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPatientFileRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientFile'
+          description: ''
+    delete:
+      operationId: patient_files_destroy
+      description: |-
+        Documents attached to a patient.
+
+        The `PatientFile` model existed with no endpoint at all, so uploads were
+        impossible through the API.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) patient file.
+        required: true
+      tags:
+      - patient-files
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/patients/:
+    get:
+      operationId: patients_list
+      description: Patients of the caller's cabinet. Never visible across cabinets.
+      parameters:
+      - in: query
+        name: cabinet
+        schema:
+          type: integer
+      - in: query
+        name: child
+        schema:
+          type: boolean
+      - in: query
+        name: cin
+        schema:
+          type: string
+      - in: query
+        name: firstname
+        schema:
+          type: string
+      - in: query
+        name: gender
+        schema:
+          type: string
+          enum:
+          - Female
+          - Male
+        description: |-
+          * `Female` - Female
+          * `Male` - Male
+      - in: query
+        name: lastname
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      - in: query
+        name: phone
+        schema:
+          type: string
+      tags:
+      - patients
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPatientList'
+          description: ''
+    post:
+      operationId: patients_create
+      description: Patients of the caller's cabinet. Never visible across cabinets.
+      tags:
+      - patients
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatientRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatientRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+          description: ''
+  /api/patients/{id}/:
+    get:
+      operationId: patients_retrieve
+      description: Patients of the caller's cabinet. Never visible across cabinets.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) patient.
+        required: true
+      tags:
+      - patients
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+          description: ''
+    put:
+      operationId: patients_update
+      description: Patients of the caller's cabinet. Never visible across cabinets.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) patient.
+        required: true
+      tags:
+      - patients
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatientRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatientRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+          description: ''
+    patch:
+      operationId: patients_partial_update
+      description: Patients of the caller's cabinet. Never visible across cabinets.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) patient.
+        required: true
+      tags:
+      - patients
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPatientRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPatientRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPatientRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+          description: ''
+    delete:
+      operationId: patients_destroy
+      description: Patients of the caller's cabinet. Never visible across cabinets.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) patient.
+        required: true
+      tags:
+      - patients
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/specialites/:
+    get:
+      operationId: specialites_list
+      description: |-
+        Medical specialities.
+
+        Global reference data shared by every cabinet, so it is not cabinet-scoped.
+        Readable by any authenticated user, writable by an admin only.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      tags:
+      - specialites
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSpecialiteList'
+          description: ''
+    post:
+      operationId: specialites_create
+      description: |-
+        Medical specialities.
+
+        Global reference data shared by every cabinet, so it is not cabinet-scoped.
+        Readable by any authenticated user, writable by an admin only.
+      tags:
+      - specialites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpecialiteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpecialiteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpecialiteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialite'
+          description: ''
+  /api/specialites/{id}/:
+    get:
+      operationId: specialites_retrieve
+      description: |-
+        Medical specialities.
+
+        Global reference data shared by every cabinet, so it is not cabinet-scoped.
+        Readable by any authenticated user, writable by an admin only.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) specialite.
+        required: true
+      tags:
+      - specialites
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialite'
+          description: ''
+    put:
+      operationId: specialites_update
+      description: |-
+        Medical specialities.
+
+        Global reference data shared by every cabinet, so it is not cabinet-scoped.
+        Readable by any authenticated user, writable by an admin only.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) specialite.
+        required: true
+      tags:
+      - specialites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpecialiteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpecialiteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpecialiteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialite'
+          description: ''
+    patch:
+      operationId: specialites_partial_update
+      description: |-
+        Medical specialities.
+
+        Global reference data shared by every cabinet, so it is not cabinet-scoped.
+        Readable by any authenticated user, writable by an admin only.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) specialite.
+        required: true
+      tags:
+      - specialites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialiteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialiteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialiteRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialite'
+          description: ''
+    delete:
+      operationId: specialites_destroy
+      description: |-
+        Medical specialities.
+
+        Global reference data shared by every cabinet, so it is not cabinet-scoped.
+        Readable by any authenticated user, writable by an admin only.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) specialite.
+        required: true
+      tags:
+      - specialites
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/users/:
+    get:
+      operationId: users_list
+      description: Directory of auth accounts. Admin only.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Un numéro de page de l'ensemble des résultats.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Nombre de résultats à retourner par page.
+        schema:
+          type: integer
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserSummaryList'
+          description: ''
+  /api/users/{id}/:
+    get:
+      operationId: users_retrieve
+      description: Directory of auth accounts. Admin only.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un(une) valeur entière unique identifiant ce(cette) utilisateur.
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSummary'
+          description: ''
+components:
+  schemas:
+    ActeDemander:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - cabinet
+      - created_at
+      - id
+      - title
+      - updated_at
+    ActeDemanderRequest:
+      type: object
+      properties:
+        cabinet:
+          type: integer
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+      required:
+      - cabinet
+      - title
+    ActeFait:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - cabinet
+      - created_at
+      - id
+      - title
+      - updated_at
+    ActeFaitRequest:
+      type: object
+      properties:
+        cabinet:
+          type: integer
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+      required:
+      - cabinet
+      - title
+    Appointment:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        patient:
+          type: integer
+        patient_name:
+          type: string
+          readOnly: true
+        cabinet:
+          type: integer
+        date:
+          type: string
+          format: date
+        start:
+          type: string
+          format: time
+        end:
+          type: string
+          format: time
+        description:
+          type: string
+        payed:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - date
+      - end
+      - id
+      - patient
+      - patient_name
+      - start
+      - updated_at
+    AppointmentRequest:
+      type: object
+      properties:
+        patient:
+          type: integer
+        cabinet:
+          type: integer
+        date:
+          type: string
+          format: date
+        start:
+          type: string
+          format: time
+        end:
+          type: string
+          format: time
+        description:
+          type: string
+        payed:
+          type: boolean
+      required:
+      - date
+      - end
+      - patient
+      - start
+    Assistant:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        cabinet:
+          type: integer
+        cabinet_name:
+          type: string
+          readOnly: true
+        img:
+          type: string
+          format: uri
+          nullable: true
+        cin:
+          type: string
+          nullable: true
+          maxLength: 25
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - cabinet
+      - cabinet_name
+      - created_at
+      - gender
+      - id
+      - phone
+      - updated_at
+      - user
+    AssistantCreate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: uri
+          nullable: true
+        cin:
+          type: string
+          nullable: true
+          maxLength: 25
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+      required:
+      - cabinet
+      - gender
+      - id
+      - phone
+    AssistantCreateRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          minLength: 8
+        email:
+          type: string
+          format: email
+          writeOnly: true
+          minLength: 1
+        first_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        last_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: binary
+        cin:
+          type: string
+          nullable: true
+          maxLength: 25
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+      required:
+      - cabinet
+      - email
+      - first_name
+      - gender
+      - last_name
+      - password
+      - phone
+      - username
+    AssistantUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: uri
+          nullable: true
+        cin:
+          type: string
+          nullable: true
+          maxLength: 25
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+      required:
+      - cabinet
+      - gender
+      - id
+      - phone
+    AssistantUpdateRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          writeOnly: true
+          minLength: 1
+        first_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        last_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: binary
+        cin:
+          type: string
+          nullable: true
+          maxLength: 25
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+      required:
+      - cabinet
+      - gender
+      - phone
+    Cabinet:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        number:
+          type: string
+          maxLength: 255
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+      - number
+      - updated_at
+    CabinetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        number:
+          type: string
+          minLength: 1
+          maxLength: 255
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+      required:
+      - name
+      - number
+    Doctor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        cabinet:
+          type: integer
+        cabinet_name:
+          type: string
+          readOnly: true
+        img:
+          type: string
+          format: uri
+          nullable: true
+        inp:
+          type: string
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+        specialiste:
+          type: integer
+        specialiste_name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - cabinet
+      - cabinet_name
+      - created_at
+      - gender
+      - id
+      - inp
+      - phone
+      - specialiste
+      - specialiste_name
+      - updated_at
+      - user
+    DoctorCreate:
+      type: object
+      description: |-
+        Creates the `User` account and the `Doctor` profile together.
+
+        The previous implementation created the user, then fetched it again with
+        `User.objects.last()`, which attaches the wrong account under concurrency.
+        Here the instance returned by `create_user` is used directly, inside one
+        transaction.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: uri
+          nullable: true
+        inp:
+          type: string
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+        specialiste:
+          type: integer
+      required:
+      - cabinet
+      - gender
+      - id
+      - inp
+      - phone
+      - specialiste
+    DoctorCreateRequest:
+      type: object
+      description: |-
+        Creates the `User` account and the `Doctor` profile together.
+
+        The previous implementation created the user, then fetched it again with
+        `User.objects.last()`, which attaches the wrong account under concurrency.
+        Here the instance returned by `create_user` is used directly, inside one
+        transaction.
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          minLength: 8
+        email:
+          type: string
+          format: email
+          writeOnly: true
+          minLength: 1
+        first_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        last_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: binary
+        inp:
+          type: string
+          minLength: 1
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+        specialiste:
+          type: integer
+      required:
+      - cabinet
+      - email
+      - first_name
+      - gender
+      - inp
+      - last_name
+      - password
+      - phone
+      - specialiste
+      - username
+    DoctorUpdate:
+      type: object
+      description: Partial update of a doctor, including their auth account.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: uri
+          nullable: true
+        inp:
+          type: string
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+        specialiste:
+          type: integer
+      required:
+      - cabinet
+      - gender
+      - id
+      - inp
+      - phone
+      - specialiste
+    DoctorUpdateRequest:
+      type: object
+      description: Partial update of a doctor, including their auth account.
+      properties:
+        email:
+          type: string
+          format: email
+          writeOnly: true
+          minLength: 1
+        first_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        last_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: binary
+        inp:
+          type: string
+          minLength: 1
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+        specialiste:
+          type: integer
+      required:
+      - cabinet
+      - gender
+      - inp
+      - phone
+      - specialiste
+    GenderEnum:
+      enum:
+      - Female
+      - Male
+      type: string
+      description: |-
+        * `Female` - Female
+        * `Male` - Male
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        appointment:
+          type: integer
+        patient_name:
+          type: string
+          readOnly: true
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        recipient:
+          type: integer
+          description: Staff member the invoice is addressed to.
+        recipient_username:
+          type: string
+          readOnly: true
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        payed:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - amount
+      - appointment
+      - created_at
+      - id
+      - patient_name
+      - recipient_username
+      - updated_at
+    InvoiceRequest:
+      type: object
+      properties:
+        appointment:
+          type: integer
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        recipient:
+          type: integer
+          description: Staff member the invoice is addressed to.
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        payed:
+          type: boolean
+      required:
+      - amount
+      - appointment
+    Medicament:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - cabinet
+      - created_at
+      - id
+      - name
+      - updated_at
+    MedicamentRequest:
+      type: object
+      properties:
+        cabinet:
+          type: integer
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+      required:
+      - cabinet
+      - name
+    Ordonnance:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+          readOnly: true
+        appointment:
+          type: integer
+        acte_demander:
+          type: integer
+          nullable: true
+        acte_fait:
+          type: integer
+          nullable: true
+        description:
+          type: string
+        medicaments:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+        medicaments_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdonnanceMedicament'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - appointment
+      - cabinet
+      - created_at
+      - description
+      - id
+      - medicaments
+      - medicaments_list
+      - updated_at
+    OrdonnanceMedicament:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        medicament:
+          type: integer
+        medicament_name:
+          type: string
+          readOnly: true
+        dosage:
+          type: string
+          maxLength: 255
+        duration:
+          type: string
+          maxLength: 255
+      required:
+      - id
+      - medicament
+      - medicament_name
+    OrdonnanceMedicamentRequest:
+      type: object
+      properties:
+        medicament:
+          type: integer
+        dosage:
+          type: string
+          maxLength: 255
+        duration:
+          type: string
+          maxLength: 255
+      required:
+      - medicament
+    OrdonnanceRequest:
+      type: object
+      properties:
+        appointment:
+          type: integer
+        acte_demander:
+          type: integer
+          nullable: true
+        acte_fait:
+          type: integer
+          nullable: true
+        description:
+          type: string
+          minLength: 1
+      required:
+      - appointment
+      - description
+    PaginatedActeDemanderList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActeDemander'
+    PaginatedActeFaitList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActeFait'
+    PaginatedAppointmentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Appointment'
+    PaginatedAssistantList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assistant'
+    PaginatedCabinetList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cabinet'
+    PaginatedDoctorList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Doctor'
+    PaginatedInvoiceList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+    PaginatedMedicamentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Medicament'
+    PaginatedOrdonnanceList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ordonnance'
+    PaginatedPatientFileList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientFile'
+    PaginatedPatientList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Patient'
+    PaginatedSpecialiteList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Specialite'
+    PaginatedUserSummaryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSummary'
+    PatchedActeDemanderRequest:
+      type: object
+      properties:
+        cabinet:
+          type: integer
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+    PatchedActeFaitRequest:
+      type: object
+      properties:
+        cabinet:
+          type: integer
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+    PatchedAppointmentRequest:
+      type: object
+      properties:
+        patient:
+          type: integer
+        cabinet:
+          type: integer
+        date:
+          type: string
+          format: date
+        start:
+          type: string
+          format: time
+        end:
+          type: string
+          format: time
+        description:
+          type: string
+        payed:
+          type: boolean
+    PatchedAssistantUpdateRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          writeOnly: true
+          minLength: 1
+        first_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        last_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: binary
+        cin:
+          type: string
+          nullable: true
+          maxLength: 25
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+    PatchedCabinetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        number:
+          type: string
+          minLength: 1
+          maxLength: 255
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+    PatchedDoctorUpdateRequest:
+      type: object
+      description: Partial update of a doctor, including their auth account.
+      properties:
+        email:
+          type: string
+          format: email
+          writeOnly: true
+          minLength: 1
+        first_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        last_name:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 150
+        cabinet:
+          type: integer
+        img:
+          type: string
+          format: binary
+        inp:
+          type: string
+          minLength: 1
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 30
+        address:
+          type: string
+          nullable: true
+          maxLength: 500
+        specialiste:
+          type: integer
+    PatchedInvoiceRequest:
+      type: object
+      properties:
+        appointment:
+          type: integer
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        recipient:
+          type: integer
+          description: Staff member the invoice is addressed to.
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        payed:
+          type: boolean
+    PatchedMedicamentRequest:
+      type: object
+      properties:
+        cabinet:
+          type: integer
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+    PatchedOrdonnanceRequest:
+      type: object
+      properties:
+        appointment:
+          type: integer
+        acte_demander:
+          type: integer
+          nullable: true
+        acte_fait:
+          type: integer
+          nullable: true
+        description:
+          type: string
+          minLength: 1
+    PatchedPatientFileRequest:
+      type: object
+      properties:
+        patient:
+          type: integer
+        file:
+          type: string
+          format: binary
+    PatchedPatientRequest:
+      type: object
+      properties:
+        cabinet:
+          type: integer
+        cin:
+          type: string
+          minLength: 1
+          maxLength: 25
+        img:
+          type: string
+          format: binary
+        firstname:
+          type: string
+          minLength: 1
+          maxLength: 255
+        lastname:
+          type: string
+          minLength: 1
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        age:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 25
+        address:
+          type: string
+          minLength: 1
+          maxLength: 500
+        child:
+          type: boolean
+          description: Patient is a minor; age is optional and consent rules may apply.
+    PatchedSpecialiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 250
+    Patient:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cabinet:
+          type: integer
+        cabinet_name:
+          type: string
+          readOnly: true
+        cin:
+          type: string
+          maxLength: 25
+        img:
+          type: string
+          format: uri
+          nullable: true
+        firstname:
+          type: string
+          maxLength: 255
+        lastname:
+          type: string
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        age:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        phone:
+          type: string
+          maxLength: 25
+        address:
+          type: string
+          maxLength: 500
+        child:
+          type: boolean
+          description: Patient is a minor; age is optional and consent rules may apply.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - address
+      - cabinet_name
+      - cin
+      - created_at
+      - firstname
+      - gender
+      - id
+      - lastname
+      - phone
+      - updated_at
+    PatientFile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        patient:
+          type: integer
+        file:
+          type: string
+          format: uri
+        uploaded_at:
+          type: string
+          format: date-time
+          readOnly: true
+        uploaded_by:
+          type: string
+          readOnly: true
+        download_url:
+          type: string
+          readOnly: true
+      required:
+      - download_url
+      - file
+      - id
+      - patient
+      - uploaded_at
+      - uploaded_by
+    PatientFileRequest:
+      type: object
+      properties:
+        patient:
+          type: integer
+        file:
+          type: string
+          format: binary
+      required:
+      - file
+      - patient
+    PatientRequest:
+      type: object
+      properties:
+        cabinet:
+          type: integer
+        cin:
+          type: string
+          minLength: 1
+          maxLength: 25
+        img:
+          type: string
+          format: binary
+        firstname:
+          type: string
+          minLength: 1
+          maxLength: 255
+        lastname:
+          type: string
+          minLength: 1
+          maxLength: 255
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        age:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 25
+        address:
+          type: string
+          minLength: 1
+          maxLength: 500
+        child:
+          type: boolean
+          description: Patient is a minor; age is optional and consent rules may apply.
+      required:
+      - address
+      - cin
+      - firstname
+      - gender
+      - lastname
+      - phone
+    RoleTokenObtainPairRequest:
+      type: object
+      description: |-
+        Adds the caller's role and cabinet to the access token so the frontend
+        can route without a second round trip.
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - password
+      - username
+    Specialite:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 250
+      required:
+      - id
+      - name
+    SpecialiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 250
+      required:
+      - name
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    TokenRefreshRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          minLength: 1
+      required:
+      - refresh
+    TokenVerifyRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - token
+    UserSummary:
+      type: object
+      description: Compact view of the auth account behind a staff member.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Nom d’utilisateur
+          description: Requis. 150 caractères maximum. Uniquement des lettres, nombres
+            et les caractères « @ », « . », « + », « - » et « _ ».
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          title: Prénom
+          maxLength: 150
+        last_name:
+          type: string
+          title: Nom
+          maxLength: 150
+        email:
+          title: Adresse électronique
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        is_active:
+          type: boolean
+          title: Actif
+          description: Précise si l’utilisateur doit être considéré comme actif. Décochez
+            ceci plutôt que de supprimer le compte.
+        role:
+          type: string
+          nullable: true
+          readOnly: true
+        cabinet_id:
+          type: string
+          readOnly: true
+      required:
+      - cabinet_id
+      - id
+      - role
+      - username
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

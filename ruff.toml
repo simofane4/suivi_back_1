@@ -1,0 +1,82 @@
+# Ruff configuration for Python linting and formatting
+
+[build]
+target-version = "py311"
+line-length = 100
+
+[lint]
+# Django-aware rule selections
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort (import sorting)
+    "N",      # pep8-naming
+    "UP",     # pyupgrade
+    "ANN",    # flake8-annotations
+    "ASYNC",  # flake8-async
+    "S",      # flake8-bandit (security)
+    "B",      # flake8-bugbear
+    "A",      # flake8-builtins
+    "C4",     # flake8-comprehensions
+    "T10",    # flake8-debugger (disallow pdb)
+    "EXE",    # flake8-executable
+    "ISC",    # flake8-implicit-str-concat
+    "PIE",    # flake8-pie
+    "Q",      # flake8-quotes
+    "RET",    # flake8-return
+    "SIM",    # flake8-simplify
+    "SLOT",   # flake8-slots
+    "TCH",    # flake8-type-checking
+    "RUF",    # Ruff-specific rules
+]
+
+ignore = [
+    "E501",    # Line too long (managed by black)
+    "ANN101",  # Missing type annotation for 'self'
+    "ANN102",  # Missing type annotation for 'cls'
+    "S101",    # Use of assert (needed for tests)
+    "S105",    # Hardcoded password (ok for demo)
+    "S106",    # Hardcoded password (ok for demo)
+    "A003",    # Builtin shadowing (ok for model fields)
+    "UP009",   # UTF-8 encoding declaration (py3 default)
+]
+
+# Exclude common paths
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "*.egg-info",
+    "build",
+    "dist",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "htmlcov",
+    "staticfiles",
+    "media",
+    "node_modules",
+]
+
+# isort configuration (for "I" selection)
+[lint.isort]
+profile = "black"
+known-first-party = ["suivi_back", "accounts", "cabinets", "patients", "clinical", "billing", "common"]
+known-django = ["django", "rest_framework", "corsheaders", "django_filters", "drf_spectacular"]
+sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+force-single-line = false
+multi-line-mode = 3  # Vertical hanging indent
+line-length = 100
+skip-gitignore = true
+
+# Per-file ignores
+[lint.per-file-ignores]
+"**/__init__.py" = ["F401"]  # Allow unused imports in __init__
+"**/{settings,tests}/**" = ["S101", "S105", "S106", "S307"]  # Allow asserts and demo creds in tests/settings
+
+# Naming conventions
+[lint.pep8-naming]
+classmethod-decorators = ["classmethod", "cached_property"]
+staticmethod-decorators = ["staticmethod"]

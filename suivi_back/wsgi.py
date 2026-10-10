@@ -11,6 +11,10 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'suivi_back.settings')
+# Use production settings unless DJANGO_DEBUG is explicitly "true"
+if os.environ.get("DJANGO_DEBUG", "False").lower() == "true":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "suivi_back.settings.dev")
+else:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "suivi_back.settings.prod")
 
 application = get_wsgi_application()
