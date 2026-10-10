@@ -114,7 +114,7 @@ QA: ............tests continus......................E2E
 - [x] **BE-23** Anti-chevauchement (test correct, pas de `values_list('appointment')`). (0,6 j)
       Réf bug : `cab_g/views.py:246,385`.
 - [x] **BE-24** `GET /api/appointments/agenda/?date=&praticien=` + `POST .../cancel/` (ou statut). (0,6 j)
-- [ ] **BE-25** Filtres `date`, `date_from`, `date_to`, `patient`, `payed`, `search`, `ordering`. (0,6 j)
+- [x] **BE-25** Filtres `date`, `date_from`, `date_to`, `patient`, `payed`, `search`, `ordering`. (0,6 j)
 - [ ] **FE-07** Vue calendrier jour/semaine (FullCalendar déjà installé). (1,5 j)
 - [ ] **FE-08** Formulaire RDV + changement de statut. (0,5 j)
 
@@ -124,11 +124,11 @@ QA: ............tests continus......................E2E
 
 ## 7. Phase 6 — Ordonnances + PDF FR/AR (3 j BE / 1,5 j FE)
 
-- [ ] **BE-26** `Medicament` FR/AR (`name_fr`, `name_ar`, `form`, `dosage`). (0,5 j)
-- [ ] **BE-27** `Ordonnance` + `OrdonnanceLine` ; corriger la FK `appointment` → **Appointment**. (0,8 j)
+- [x] **BE-26** `Medicament` FR/AR (`name_fr`, `name_ar`, `form`, `dosage`). (0,5 j)
+- [x] **BE-27** `Ordonnance` + `OrdonnanceLine` ; corriger la FK `appointment` → **Appointment**. (0,8 j)
       Réf bug : `cab_g/models.py:99`.
-- [ ] **BE-28** `/api/ordonnances/` avec `medicaments_list`, `acte_demander`, `acte_fait`. (0,6 j)
-- [ ] **BE-29** `GET /api/ordonnances/{id}/pdf/` bilingue FR/AR (en-tête cabinet, bloc RTL). (1,1 j)
+- [x] **BE-28** `/api/ordonnances/` avec `medicaments_list`, `acte_demander`, `acte_fait`. (0,6 j)
+- [x] **BE-29** `GET /api/ordonnances/{id}/pdf/` bilingue FR/AR (en-tête cabinet, bloc RTL). (1,1 j)
 - [ ] **FE-09** Éditeur bilingue + aperçu PDF. (1,5 j)
       Réf : `admin/ordonnance/ordonnance.model.ts:24-38`.
 
@@ -138,12 +138,12 @@ QA: ............tests continus......................E2E
 
 ## 8. Phase 7 — Facturation (3 j BE / 1,5 j FE)
 
-- [ ] **BE-30** `Invoice` + `InvoiceItem` + `Payment` (part organisme/patient, statuts). (1 j)
-- [ ] **BE-31** Corriger `Invoice.__str__` (`self.status` inexistant) + `/api/invoices/`. (0,4 j)
+- [x] **BE-30** `Invoice` + `InvoiceItem` + `Payment` (part organisme/patient, statuts). (1 j)
+- [x] **BE-31** Corriger `Invoice.__str__` (`self.status` inexistant) + `/api/invoices/`. (0,4 j)
       Réf bug : `cab_g/models.py:115`.
-- [ ] **BE-32** `/api/invoices/unpaid/` + `POST /api/invoices/{id}/payments/`. (0,6 j)
-- [ ] **BE-33** `GET /api/invoices/{id}/pdf/` (en-tête, ventilation). (0,8 j)
-- [ ] **BE-34** Calcul reliquats (patient + organisme) et statuts dérivés. (0,4 j)
+- [x] **BE-32** `/api/invoices/unpaid/` + `POST /api/invoices/{id}/payments/`. (0,6 j)
+- [x] **BE-33** `GET /api/invoices/{id}/pdf/` (en-tête, ventilation). (0,8 j)
+- [x] **BE-34** Calcul reliquats (patient + organisme) et statuts dérivés. (0,4 j)
 - [ ] **FE-10** Écran facturation : devis, paiement, reliquat, impression. (1,5 j)
 
 **DoD** : facture avec part CNOPS/CNSS, paiement enregistré, reliquat affiché, PDF.
@@ -193,7 +193,7 @@ QA: ............tests continus......................E2E
 - [x] P3 Référentiels branchés
 - [x] P4 Dossier médical
 - [x] P5 Agenda
-- [ ] P6 Ordonnances + PDF
-- [ ] P7 Facturation + PDF
+- [x] P6 Ordonnances + PDF
+- [x] P7 Facturation + PDF
 - [ ] P8 Dashboard
 - [ ] P9 Prod + tests + doc

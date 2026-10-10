@@ -20,12 +20,16 @@ class CabinetOwnedCatalog(TimeStampedModel):
 
 class Medicament(CabinetOwnedCatalog):
     name = models.CharField(max_length=255)
+    name_fr = models.CharField(max_length=255, blank=True, default="")
+    name_ar = models.CharField(max_length=255, blank=True, default="")
+    form = models.CharField(max_length=100, blank=True, default="")
+    dosage = models.CharField(max_length=100, blank=True, default="")
 
     class Meta:
         ordering = ["name"]
 
     def __str__(self):
-        return self.name
+        return self.name_fr or self.name
 
 
 class ActeDemander(CabinetOwnedCatalog):
